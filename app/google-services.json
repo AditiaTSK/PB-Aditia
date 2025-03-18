@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "920819819749",
+    "project_id": "aditiashowroom",
+    "storage_bucket": "aditiashowroom.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:920819819749:android:4ef3b2d6eb966bf67c600c",
+        "android_client_info": {
+          "package_name": "com.example.aditshowroom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBL0DuRGLjJoDn1CWGO0j_USsabkn3DUqs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
