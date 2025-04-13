@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">AditiaShowroom</string>
+
+        <string-array name="mobil_options">
+            <item>Mercedes Benz C-Class</item>
+            <item>Mazda MX-5 Miata</item>
+            <item>Toyota GR86</item>
+            <item>Renault Clio RS 1.6L Turbo</item>
+            <item>Chevrolet Camaro Coupe</item>
+        </string-array>
+
+        <string-array name="warna_options">
+            <item>Putih</item>
+            <item>Hitam</item>
+            <item>Merah</item>
+            <item>Biru</item>
+        </string-array>
+
+        <string-array name="pembayaran_options">
+            <item>Cash</item>
+            <item>Kredit</item>
+        </string-array>
+
 </resources>

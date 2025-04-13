@@ -29,10 +29,8 @@ public class Signin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Menghilangkan status bar
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         getSupportActionBar().hide();
-
         setContentView(R.layout.signin);
 
         buttonMasuk = findViewById(R.id.buttonmasuk);
@@ -48,7 +46,7 @@ public class Signin extends AppCompatActivity {
             public void onClick(View view) {
                 String email = emailInput.getText().toString().trim();
                 String sandi = sandiInput.getText().toString().trim();
-                String emailKey = email.replace(".", ","); // Ubah '.' jadi ',' agar cocok di Firebase
+                String emailKey = email.replace(".", ",");
 
                 if (email.isEmpty() || sandi.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Email atau Password tidak boleh kosong", Toast.LENGTH_SHORT).show();
@@ -61,7 +59,6 @@ public class Signin extends AppCompatActivity {
                         if (snapshot.exists()) {
                             String storedPassword = snapshot.child("password").getValue(String.class);
                             if (storedPassword != null && storedPassword.equals(sandi)) {
-                                // Simpan email pengguna yang login di SharedPreferences
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("email", emailKey);
                                 editor.apply();
@@ -85,7 +82,6 @@ public class Signin extends AppCompatActivity {
             }
         });
 
-        // Tombol kembali
         backButton.setOnClickListener(view -> finish());
     }
 }

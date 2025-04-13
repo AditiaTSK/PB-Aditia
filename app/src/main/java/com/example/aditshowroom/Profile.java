@@ -4,15 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 public class Profile extends AppCompatActivity {
 
     private TextView usernameTextView, emailTextView, umurTextView, alamatTextView;
-    private ImageView backButton;
     private DatabaseReference databaseReference;
     private SharedPreferences sharedPreferences;
     private Button logoutButton;
@@ -30,8 +30,6 @@ public class Profile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Menghilangkan status bar
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.profile);
@@ -41,7 +39,6 @@ public class Profile extends AppCompatActivity {
         umurTextView = findViewById(R.id.umurTextView);
         alamatTextView = findViewById(R.id.alamatTextView);
         logoutButton = findViewById(R.id.logoutButton);
-        backButton = findViewById(R.id.backButton);
 
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE);
         String emailKey = sharedPreferences.getString("email", null);
@@ -77,26 +74,37 @@ public class Profile extends AppCompatActivity {
             finish();
         }
 
-        // Logout Button
         logoutButton.setOnClickListener(view -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear(); // Hapus data login
+            editor.clear();
             editor.apply();
 
-            // Hapus semua aktivitas dan kembali ke MainActivity
             Intent intent = new Intent(Profile.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         });
 
-        // Tombol kembali
-        backButton.setOnClickListener(view -> finish());
-    }
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_profile);
 
-    @Override
-    public void onBackPressed() {
-        // Jika tombol back ditekan, keluar dari aplikasi
-        finishAffinity();
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.nav_home) {
+                    startActivity(new Intent(Profile.this, Home.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (itemId == R.id.nav_profile) {
+                    return true;
+                } else if (itemId == R.id.nav_settings) {
+                    startActivity(new Intent(Profile.this, Settings.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }
